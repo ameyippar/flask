@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+{# ===============================
+   📊 PROGRESS BAR (AUTO CALCULATED)
+   =============================== #}
+{% set total = tasks | length %}
+{% set completed = tasks | selectattr('status', 'equalto', 'Completed') | list | length %}
+{% set percent = (completed / total * 100) if total > 0 else 0 %}
+
+<div class="card">
+    <h3>Overall Progress</h3>
+    <p>{{ completed }} / {{ total }} tasks completed</p>
+
+    <div style="height: 12px; background: #e5e7eb; border-radius: 10px; overflow: hidden;">
+        <div style="
+            width: {{ percent }}%;
+            height: 100%;
+            background: linear-gradient(90deg, #22c55e, #4ade80);
+            transition: width 0.5s ease;
+        "></div>
+    </div>
+
+    <p style="margin-top: 8px; font-weight: bold;">
+        {{ percent | int }}%
+    </p>
+</div>
+
+<h2>My Tasks</h2>
+
+{% for task in tasks %}
+<div class="card">
+    <h3>{{ task.title }}</h3>
+
+    <p>
+        Status:
+        {% if task.status == 'Completed' %}
+            <span class="badge completed">Completed</span>
+        {% elif task.status == 'In Progress' %}
+            <span class="badge inprogress">In Progress</span>
+        {% else %}
+            <span class="badge pending">Pending</span>
+        {% endif %}
+    </p>
+
+    <p>
+        Priority:
+        <strong>{{ task.priority }}</strong>
+    </p>
+
+    <a class="btn" href="/task/{{ task.id }}">View</a>
+    <a class="btn green" href="/update/{{ task.id }}">Mark Done</a>
+    <a class="btn red" href="/delete/{{ task.id }}">Delete</a>
+</div>
+{% endfor %}
+
+{% endblock %}
