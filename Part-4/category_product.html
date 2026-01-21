@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ category | title }} - Product</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f0f4f8;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        nav {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #edf2f7;
+            border-radius: 5px;
+        }
+        nav a {
+            margin-right: 15px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #4a5568;
+        }
+        .product-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+        .price {
+            font-size: 22px;
+            color: #2b6cb0;
+            font-weight: bold;
+        }
+        .category {
+            background: #edf2f7;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .not-found {
+            background: #fed7d7;
+            border: 1px solid #fc8181;
+            color: #c53030;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <nav>
+            <a href="/">Home</a>
+            <a href="/product/1">Products</a>
+        </nav>
+
+        <h1>Category: {{ category | title }}</h1>
+
+        {% if product %}
+            <div class="product-card">
+                <span class="category">{{ category }}</span>
+                <h2>{{ product.name }}</h2>
+                <p class="price">₹ {{ product.price }}</p>
+                <p><strong>Product ID:</strong> {{ product_id }}</p>
+            </div>
+        {% else %}
+            <div class="not-found">
+                <h2>Product Not Found</h2>
+                <p>Product #{{ product_id }} does not exist in category "{{ category }}".</p>
+            </div>
+        {% endif %}
+
+    </div>
+</body>
+</html>
