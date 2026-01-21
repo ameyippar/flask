@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}About | {{ info.name }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>About Me</h2>
+    <p style="font-size: 18px; margin-bottom: 20px;">{{ info.bio }}</p>
+
+    <div class="info-box">
+        <strong>Jinja2 in Action:</strong>
+        <p>
+            This page demonstrates passing multiple variables
+            (<code>info</code>, <code>skills</code>) from Python to the template!
+        </p>
+    </div>
+</div>
+
+<!-- Skills Section -->
+<div class="card">
+    <h2>My Skills</h2>
+    <p style="margin-bottom: 20px;">
+        Click on a skill to see projects that use it:
+    </p>
+
+    {% for skill in skills %}
+    <div class="skill-item">
+        <div class="skill-name">
+            <!-- 🔥 SKILL MADE CLICKABLE -->
+            <a href="{{ url_for('skill_detail', skill_name=skill.name) }}"
+               style="text-decoration: none; color: inherit; font-weight: 600;">
+                {{ skill.name }}
+            </a>
+            <span>{{ skill.level }}%</span>
+        </div>
+        <div class="skill-bar">
+            <div class="skill-progress" style="width: {{ skill.level }}%;"></div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="info-box" style="margin-top: 20px;">
+        <strong>Dynamic Routing:</strong>
+        <p>
+            Each skill above links to a dynamic route:
+        </p>
+        <code style="display: block; margin-top: 10px; background: #edf2f7; padding: 10px; border-radius: 5px;">
+            /skill/&lt;skill_name&gt;
+        </code>
+        <p style="margin-top: 10px;">
+            Flask filters projects based on the selected skill.
+        </p>
+    </div>
+</div>
+
+<!-- What I'm Learning -->
+<div class="card">
+    <h2>What I'm Learning</h2>
+    <ul style="margin-left: 20px;">
+        <li>Python & Flask for backend development</li>
+        <li>HTML, CSS, and JavaScript for frontend</li>
+        <li>Database management with SQL</li>
+        <li>Version control with Git</li>
+        <li>RESTful API design</li>
+    </ul>
+</div>
+{% endblock %}

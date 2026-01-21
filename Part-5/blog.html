@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Blog | {{ info.name }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>My Blog</h2>
+    <p>Notes, learnings, and thoughts from my Flask journey.</p>
+</div>
+
+{% for post in posts %}
+<div class="card">
+    <h3>{{ post.title }}</h3>
+    <small>Published on {{ post.date }}</small>
+    <p style="margin-top: 10px;">{{ post.content }}</p>
+</div>
+{% else %}
+<div class="card">
+    <p>No blog posts available.</p>
+</div>
+{% endfor %}
+{% endblock %}
